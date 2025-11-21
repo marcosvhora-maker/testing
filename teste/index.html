@@ -1,1 +1,129 @@
-http://example.com/
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculadora</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    header {
+      font-size: 50px;
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .grayButton {
+      background-color: rgb(51, 51, 51);
+      color: white;
+    }
+
+    .grayButton:hover {
+      background-color: rgb(80, 80, 80);
+    }
+
+    .orangeButton {
+      background-color: rgb(254, 160, 10);
+      color: white;
+    }
+
+    .orangeButton:hover {
+      background-color: rgb(255, 180, 30);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <span id="numDisplay"></span>
+  </header>
+
+  <!-- Linha 1 -->
+  <div class="buttons">
+    <button class='grayButton' onclick="add('1')">1</button>
+    <button class='grayButton' onclick="add('2')">2</button>
+    <button class='grayButton' onclick="add('3')">3</button>
+    <button class='orangeButton' onclick="add('+')">+</button>
+  </div>
+
+  <!-- Linha 2 -->
+  <div class="buttons">
+    <button class='grayButton' onclick="add('4')">4</button>
+    <button class='grayButton' onclick="add('5')">5</button>
+    <button class='grayButton' onclick="add('6')">6</button>
+    <button class='orangeButton' onclick="add('-')">-</button>
+  </div>
+
+  <!-- Linha 3 -->
+  <div class="buttons">
+    <button class='grayButton' onclick="add('7')">7</button>
+    <button class='grayButton' onclick="add('8')">8</button>
+    <button class='grayButton' onclick="add('9')">9</button>
+    <button class='orangeButton' onclick="add('*')">*</button>
+  </div>
+
+  <!-- Linha 4 -->
+  <div class="buttons">
+    <button class='grayButton' onclick="add('0')">0</button>
+    <button class='grayButton' onclick="add('.')">.</button>
+    <button class='grayButton' onclick="add('=')">=</button>
+    <button class='orangeButton' onclick="add('/')">/</button>
+  </div>
+
+  <!-- Clear -->
+  <div class="buttons">
+    <button class='grayButton' onclick="add('clear')">Clear</button>
+  </div>
+
+  <script>
+    const chars = ['/', '-', '+', '*'];
+    let acount = '';
+
+    function add(num) {
+      if (num !== '=' && num !== 'clear') {
+        // Evita dois operadores seguidos
+        if (chars.includes(num)) {
+          if (acount === "" || !chars.includes(acount[acount.length - 1])) {
+            acount += ` ${num} `;
+          }
+        } else {
+          acount += num;
+        }
+      } else if (num === '=') {
+        if (acount !== "") {
+          acount = eval(acount);
+        }
+      } else if (num === 'clear') {
+        acount = '';
+      }
+
+      showNum();
+    }
+
+    function showNum() {
+      document.getElementById('numDisplay').textContent = acount;
+    }
+  </script>
+
+</body>
+</html>
